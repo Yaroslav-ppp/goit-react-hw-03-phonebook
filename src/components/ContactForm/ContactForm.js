@@ -23,12 +23,7 @@ export class ContactForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
     this.props.onSubmit(this.state);
-
-    this.props.names.includes(name)
-      ? window.alert(`${name} is already in contacts.`)
-      : this.props.onAddContact(name, number);
 
     this.reset();
   };
@@ -72,7 +67,5 @@ export class ContactForm extends Component {
   }
 }
 ContactForm.propTypes = {
-  names: PropTypes.array,
-  onAddContact: PropTypes.func,
   onSubmit: PropTypes.func,
 };

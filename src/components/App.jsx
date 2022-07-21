@@ -15,15 +15,19 @@ export class App extends Component {
     filter: '',
   };
 
-  AddContact = (name, number) => {
+  AddContact = ({ name, number }) => {
     const contact = {
       id: nanoid(5),
       name,
       number,
     };
-    this.setState(prevState => ({
-      contacts: [contact, ...prevState.contacts],
-    }));
+
+    const NamesInContacts = this.getNamesInContacts();
+    NamesInContacts.includes(name.toLowerCase())
+      ? window.alert(`${name} is already in contacts.`)
+      : this.setState(prevState => ({
+          contacts: [contact, ...prevState.contacts],
+        }));
   };
 
   delContact = contactId => {
@@ -32,8 +36,8 @@ export class App extends Component {
     }));
   };
 
-  formSubmitHandler = data => {
-    console.log(data);
+  formSubmitHandler = ({ name, number }) => {
+    this.AddContact({ name, number });
   };
 
   changeFilter = e => {
@@ -49,21 +53,17 @@ export class App extends Component {
     );
   };
 
-  getNamesInContacts = () => this.state.contacts.map(contact => contact.name);
+  getNamesInContacts = () =>
+    this.state.contacts.map(contact => contact.name.toLowerCase());
 
   render() {
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
-    const NamesInContacts = this.getNamesInContacts();
 
     return (
       <div>
         <h1>Phonebook</h1>
-        <ContactForm
-          onSubmit={this.formSubmitHandler}
-          onAddContact={this.AddContact}
-          names={NamesInContacts}
-        />
+        <ContactForm onSubmit={this.formSubmitHandler} />
         <h2>Contacts</h2>
         <Filter value={filter} onChange={this.changeFilter} />
         <ContactList
