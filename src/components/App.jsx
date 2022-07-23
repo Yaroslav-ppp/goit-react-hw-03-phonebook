@@ -22,8 +22,7 @@ export class App extends Component {
       number,
     };
 
-    const NamesInContacts = this.getNamesInContacts();
-    NamesInContacts.includes(name.toLowerCase())
+    this.state.contacts.find(contact => contact.name.toLowerCase()===name.toLowerCase())
       ? window.alert(`${name} is already in contacts.`)
       : this.setState(prevState => ({
           contacts: [contact, ...prevState.contacts],
@@ -52,9 +51,6 @@ export class App extends Component {
       contact.name.toLowerCase().includes(normalizedFilter)
     );
   };
-
-  getNamesInContacts = () =>
-    this.state.contacts.map(contact => contact.name.toLowerCase());
 
   render() {
     const { filter } = this.state;
