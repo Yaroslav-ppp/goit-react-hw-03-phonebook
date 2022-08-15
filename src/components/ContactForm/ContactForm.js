@@ -46,7 +46,7 @@ export class ContactForm extends Component {
             value={this.state.name}
             onChange={this.handleChange}
             id={this.inputNameId}
-          ></input>
+          />
         </Input>
         <Input>
           <Label htmlFor={this.inputNumberId}>Number</Label>
@@ -59,7 +59,7 @@ export class ContactForm extends Component {
             value={this.state.number}
             onChange={this.handleChange}
             id={this.inputNumberId}
-          ></input>
+          />
         </Input>
         <Button type="submit">Add contact</Button>
       </Form>
